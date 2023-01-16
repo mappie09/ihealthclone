@@ -184,7 +184,7 @@ def adsb():
 @app.route("/addschedule", methods = ['POST'])
 def addschedule():
 	if request.method == 'POST':
-		schedule_name = request.form['schedule_name']
+		schedule_name= request.form['schedule_name']
 		contact_person= request.form['contact_person']
 		maximum_attendees = request.form['maximum_attendees']
 		from_to_schedule= request.form['from_to_schedule']
