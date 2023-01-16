@@ -82,9 +82,6 @@ def addclinic():
 	conn.close()
 	return render_template("/clinic")
 
-
-
-
 @app.route('/updateclinic/<int:clinic_services_id>', methods = ['GET', 'POST'])
 def updateclinic(clinic_services_id):
 	uc = []
@@ -103,12 +100,9 @@ def updateclinic(clinic_services_id):
 		conn.close()
 		return redirect('/clinic')
 
-
-
 @app.route("/dental")
 def dental():
 	return render_template("clinic.html")
-
 
 @app.route("/adminvaccineinv")
 def vaccination():
@@ -142,7 +136,6 @@ def addvaccination():
 	conn.commit()
 	conn.close()
 	return redirect('/adminvaccineinv')
-
 
 @app.route('/updatevaccination/<int:vax_id>', methods = ['GET', 'POST'])
 def updatevaccination(vax_id):
@@ -184,29 +177,24 @@ def schedule():
 	conn.close()	
 	return render_template("schedule.html", schedule= schedule)
 	
-
 @app.route("/adsb")
 def adsb():
 	return render_template("admin-add-schedule.html")
 
-@app.route("/addschedule", methods = ['GET', 'POST'])
+@app.route("/addschedule", methods = ['POST'])
 def addschedule():
 	if request.method == 'POST':
-		clinic_sched_id = request.form['clinic_sched_id']
 		schedule_name = request.form['schedule_name']
 		contact_person= request.form['contact_person']
 		maximum_attendees = request.form['maximum_attendees']
 		from_to_schedule= request.form['from_to_schedule']
 	conn = connection()
 	cursor = conn.cursor()
-	cursor.execute('INSERT INTO ih_clinic_sched (clinic_sched_id, schedule_name, contact_person, maximum_attendees, from_to_schedule)'' VALUES (%s,%s,%s, %s, %s)', 
-	[clinic_sched_id, schedule_name, contact_person, maximum_attendees, from_to_schedule])
+	cursor.execute('INSERT INTO ih_clinic_sched (schedule_name, contact_person, maximum_attendees, from_to_schedule)'' VALUES (%s,%s,%s,%s)', 
+	[schedule_name, contact_person, maximum_attendees, from_to_schedule])
 	conn.commit()
 	conn.close()
 	return redirect('/schedule')
-
-
-
 
 @app.route('/updateschedule/<int:clinic_sched_id>', methods = ['GET', 'POST'])
 def updateschedule(clinic_sched_id):
@@ -224,11 +212,10 @@ def updateschedule(clinic_sched_id):
 		contact_person= str(request.form['contact_person'])
 		maximum_attendees = int(request.form['maximum_attendees'])
 		from_to_schedule= str(request.form['from_to_schedule'])
-		cursor.execute("UPDATE ih_clinic_sched SET (schedule_name, contact_person, maximum_attendees, from_to_schedule) = (%s,%s,%s, %s) WHERE clinic_services_id = (%s)", (schedule_name, contact_person, maximum_attendees, from_to_schedule))
+		cursor.execute("UPDATE ih_clinic_sched SET (schedule_name, contact_person, maximum_attendees, from_to_schedule) = (%s,%s,%s, %s) WHERE clinic_sched_id = (%s)", (schedule_name, contact_person, maximum_attendees, from_to_schedule, clinic_sched_id))
 		conn.commit()
 		conn.close()
 		return redirect('/schedule')
-
 
 @app.route("/adminmedicineinv")
 def adminmedicineinv():
@@ -244,7 +231,6 @@ def adminmedicineinv():
 @app.route("/addmedicine", methods = ['POST'])
 def addmedicine():
 	if request.method == 'POST':
-		#medicine_id = request.form['medicine_id']
 		medicine_name = request.form['medicine_name']
 		generic_name = request.form['generic_name']
 		brand_name = request.form['brand_name']
@@ -255,7 +241,7 @@ def addmedicine():
 		stock = request.form['stock']
 	conn = connection()
 	cursor = conn.cursor()
-	cursor.execute('INSERT INTO ih_medicine (medicine_name, generic_name, brand_name, manufacturer, dosage, medicine_type, description,stock)'' VALUES (%s,%s, %s, %s, %s, %s, %s,%s)', 
+	cursor.execute('INSERT INTO ih_medicine (medicine_name, generic_name, brand_name, manufacturer, dosage, medicine_type, description,stock)'' VALUES (%s,%s,%s,%s,%s,%s,%s,%s)', 
 	[medicine_name, generic_name, brand_name, manufacturer, dosage, medicine_type, description,stock])
 	conn.commit()
 	conn.close()
@@ -273,7 +259,6 @@ def updatemedicine(medicine_id):
 		conn.close()
 		return render_template("updatemedicine.html", medicine = um[0])
 	if request.method == 'POST':
-		medicine_id = str(request.form["medicine_id"])
 		medicine_name = str(request.form["medicine_name"])
 		generic_name = str(request.form["generic_name"])
 		brand_name = str(request.form["brand_name"])
@@ -282,8 +267,8 @@ def updatemedicine(medicine_id):
 		medicine_type = str(request.form["medicine_type"])
 		description = str(request.form["description"])
 		stock = int(request.form["stock"])
-		cursor.execute("UPDATE medicine SET (medicine_name, generic_name, brand_name, manufacturer, dosage, medicine_type, description,stock) = (%s,%s,%s, %s, %s, %s, %s, %s)  WHERE medicine_id =(%s)",
-		( medicine_name, generic_name, brand_name, manufacturer, dosage, medicine_type, description, stock))
+		cursor.execute("UPDATE ih_medicine SET (medicine_name, generic_name, brand_name, manufacturer, dosage, medicine_type, description,stock) = (%s,%s,%s, %s, %s, %s, %s, %s)  WHERE medicine_id =(%s)",
+		(medicine_name, generic_name, brand_name, manufacturer, dosage, medicine_type, description, stock, medicine_id))
 		conn.commit()
 		conn.close()
 		return redirect('/adminmedicineinv')
