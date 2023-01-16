@@ -47,7 +47,7 @@ def loginadmin():
 def logout():
     session.pop('user')         
     return redirect('/loginadmin')
-	"""
+"""
 
 @app.route("/index")
 def index():
@@ -131,8 +131,8 @@ def addvaccination():
 		stock  = request.form['stock']
 	conn = connection()
 	cursor = conn.cursor()
-	cursor.execute('INSERT INTO ih_vaccine (vax_name, vax_brand_manufacturer, vax_batch_no, vax_lot_no, vax_dosage, vax_tech_platform, vax_ph_fda_approval, vax_storage_req, vax_efficiency, vax_side_effect, stock)'' VALUES (%s,%s,%s, %s, %s, %s, %s, %s,%s, %s, %s)', 
-	[vax_name, vax_brand_manufacturer, vax_batch_no, vax_lot_no, vax_dosage, vax_tech_platform, vax_ph_fda_approval, vax_storage_req, vax_efficiency, vax_side_effect, stock])
+	cursor.execute('INSERT INTO ih_vaccine (vax_name, vax_brand_manufacturer, vax_batch_no, vax_lot_no, vax_dosage, vax_tech_platform, vax_ph_fda_approval, vax_storage_req, vax_efficiency, vax_side_effect, stock)'' VALUES (%s,%s,%s,%s, %s, %s, %s, %s, %s,%s, %s)', 
+	[ vax_name, vax_brand_manufacturer, vax_batch_no, vax_lot_no, vax_dosage, vax_tech_platform, vax_ph_fda_approval, vax_storage_req, vax_efficiency, vax_side_effect, stock])
 	conn.commit()
 	conn.close()
 	return redirect('/adminvaccineinv')
@@ -145,23 +145,23 @@ def updatevaccination(vax_id):
 	if request.method == 'GET':
 		cursor.execute("SELECT * FROM ih_vaccine WHERE vax_id = %s", (str(vax_id)))
 		for row in cursor.fetchall():
-			uv.append({"vax_id": row[0], "vax_name": row[1], "vax_brand_manufacturer": row[2], "vax_batch_no": row[3], "vax_lot_no": row[4], "vax_dosage": row[5], "vax_tech_platform": row[6], "vax_ph_fda_approval": row[7], "vax_storage_req": row[8], "vax_efficiency": row[9], "vax_side_effect": row[10]})
+			uv.append({"vax_id": row[0], "vax_name": row[1], "vax_brand_manufacturer": row[2], "vax_batch_no": row[3], "vax_lot_no": row[4], "vax_dosage": row[5], "vax_tech_platform": row[6], "vax_ph_fda_approval": row[7], "vax_storage_req": row[8], "vax_efficiency": row[9], "vax_side_effect": row[10],"stock": row[11]})
 		conn.close()
 		return render_template("updatevaccination.html", vaccination = uv[0])
 	if request.method == 'POST':
-		vax_name = str(request.form["vax_name"])
-		vax_brand_manufacturer = str(request.form["vax_brand_manufacturer"])
-		vax_batch_no = str(request.form["vax_batch_no"])
-		vax_lot_no = str(request.form["vax_lot_no"])
-		vax_dosage = str(request.form["vax_dosage"])
-		vax_tech_platform = str(request.form["vax_tech_platform"])
-		vax_ph_fda_approval = str(request.form["vax_ph_fda_approval"])
-		vax_storage_req = str(request.form["vax_storage_req"])
-		vax_efficiency = str(request.form["vax_efficiency"])
-		vax_side_effect = str(request.form["vax_side_effect"])
-		stock  = int(request.form['stock '])
-
-		cursor.execute("UPDATE vaccine SET (vax_name, vax_brand_manufacturer, vax_batch_no, vax_lot_no, vax_dosage, vax_tech_platform, vax_ph_fda_approval, vax_storage_req, vax_efficiency, vax_side_effect,stock) = (%s,%s,%s, %s, %s, %s, %s, %s,%s, %s,)  WHERE vaccine_id =(%s)", ( vax_name, vax_brand_manufacturer, vax_batch_no, vax_lot_no, vax_dosage, vax_tech_platform, vax_ph_fda_approval, vax_storage_req, vax_efficiency, vax_side_effect, stock))
+		vax_name = str(request.form['vax_name'])
+		vax_brand_manufacturer = str(request.form['vax_brand_manufacturer'])
+		vax_batch_no = str(request.form['vax_batch_no'])
+		vax_lot_no = str(request.form['vax_lot_no'])
+		vax_dosage = str(request.form['vax_dosage'])
+		vax_tech_platform = str(request.form['vax_tech_platform'])
+		vax_ph_fda_approval = str(request.form['vax_ph_fda_approval'])
+		vax_storage_req = str(request.form['vax_storage_req'])
+		vax_efficiency = str(request.form['vax_efficiency'])
+		vax_side_effect = str(request.form['vax_side_effect'])
+		stock  = int(request.form['stock'])
+		cursor.execute("UPDATE ih_vaccine SET (vax_name, vax_brand_manufacturer, vax_batch_no, vax_lot_no, vax_dosage, vax_tech_platform, vax_ph_fda_approval, vax_storage_req, vax_efficiency, vax_side_effect, stock) = (%s,%s,%s, %s, %s, %s, %s, %s,%s, %s,%s)  WHERE vax_id =(%s)", 
+		(vax_name,vax_brand_manufacturer,vax_batch_no,vax_lot_no,vax_dosage,vax_tech_platform,vax_ph_fda_approval,vax_storage_req,vax_efficiency,vax_side_effect,stock,vax_id))
 		conn.commit()
 		conn.close()
 		return redirect('/adminvaccineinv')
@@ -190,7 +190,7 @@ def addschedule():
 		from_to_schedule= request.form['from_to_schedule']
 	conn = connection()
 	cursor = conn.cursor()
-	cursor.execute('INSERT INTO ih_clinic_sched (schedule_name, contact_person, maximum_attendees, from_to_schedule)'' VALUES (%s,%s,%s,%s)', 
+	cursor.execute('INSERT INTO ih_clinic_sched (schedule_name, contact_person, maximum_attendees, from_to_schedule)'' VALUES (%s,%s,%s,%s)',
 	[schedule_name, contact_person, maximum_attendees, from_to_schedule])
 	conn.commit()
 	conn.close()
@@ -224,7 +224,7 @@ def adminmedicineinv():
 	cursor = conn.cursor()
 	cursor.execute("SELECT * FROM ih_medicine")
 	for row in cursor.fetchall():
-		medicine.append({"medicine_id": row[0], "medicine_name": row[1], "generic_name": row[2], "brand_name": row[3], "manufacturer": row[4], "dosage": row[5], "medicine_type": row[6], "description": row[7]})
+		medicine.append({"medicine_id": row[0], "medicine_name": row[1], "generic_name": row[2], "brand_name": row[3], "manufacturer": row[4], "dosage": row[5], "medicine_type": row[6], "description": row[7],"stock":row[8]})
 	conn.close()	
 	return render_template("adminmedicineinv.html", medicine = medicine)
 	
@@ -470,7 +470,7 @@ def updatedentalstaff(dental_id):
 
 @app.route("/staffhaptvax")
 def staffhaptvax():
-	return render_template("staffhistory-view-vax.html")
+	return render_template("staffhistory-apt-vax.html")
 
 @app.route("/staffhviewvax")
 def staffhviewaptvax():
@@ -484,7 +484,7 @@ def staffhaptdental():
 def staffhviewdental():
 	return render_template("staffhistory-view-dentalh.html")
 
-@app.route("/staffhmedicine")
+@app.route("/staffhaptmedicine")
 def staffhaptmedicine():
 	return render_template("staffhistory-apt-medicine.html")
 
