@@ -46,12 +46,12 @@
 
                 <li class="side-nav-title side-nav-item">Menu</li>
 
-                <li class="side-nav-item">
-                    <a href="/index" class="side-nav-link">
-                        <i class="uil-chart-pie"></i>
-                        <span> Dashboard </span>
-                    </a>
-                </li>
+                    <li class="side-nav-item">
+                        <a href="/index" class="side-nav-link" >
+                            <i class="uil-chart-pie"></i>
+                            <span> Dashboard </span>
+                        </a>
+                    </li>
 
                 <li class="badge-primary-lighten side-nav-item menuitem-active">
                     <a href="/schedule" class="side-nav-link">
@@ -82,7 +82,7 @@
                 </li>
 
                 <li class="side-nav-item">
-                    <a href="/clinic" class="side-nav-link">
+                    <a href="/clinic" class="side-nav-link" >
                         <i class="uil-clipboard-alt"></i>
                         <span> Clinic Service </span>
                     </a>
@@ -135,15 +135,14 @@
                         </ul>
                     </div>
                 </li>
-            </ul>
-            <!-- Sidebar -left -->
-
+            </ul><!-- Sidebar -left -->
+            
         </div>
     </div>
 
-    <!-- ============================================================== -->
-    <!-- Start Page Content here -->
-    <!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Start Page Content here -->
+<!-- ============================================================== -->
 
     <div class="wrapper">
 
@@ -152,7 +151,7 @@
                 <!-- Topbar Start -->
                 <div class="navbar-custom">
                     <ul class="list-unstyled topbar-menu float-end mb-0">
-
+    
                         <li class="dropdown notification-list">
                             <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                                 <span class="account-user-avatar">
@@ -169,7 +168,7 @@
                                 <div class=" dropdown-header noti-title">
                                     <h6 class="text-overflow m-0">Welcome !</h6>
                                 </div>
-
+    
                                 <!-- item-->
                                 <a href="/BITBo/login-admin.html" class="dropdown-item notify-item">
                                     <i class="mdi mdi-logout me-1"></i>
@@ -177,7 +176,7 @@
                                 </a>
                             </div>
                         </li>
-
+    
                     </ul>
                     <button class="button-menu-mobile open-left">
                         <i class="mdi mdi-menu"></i>
@@ -204,32 +203,34 @@
                                     <div class="card-body">
                                         <thead>
                                             <p>Please fill in the details below to successfully add a Schedule.</p>
-                                            <form action="/addschedule" method="POST">
-                                                <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <label for="schedule_name" class="form-label">Schedule
+                                                <form action="/addschedule" method="POST">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <label for="schedule_name" class="form-label">Schedule
                                                                 Name:&nbsp;<span style="color:#ff0000">*</span></label>
-                                                        <input type="text" name="schedule_name" class="form-control">
-                                                        </span>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <label for="from_to_schedule" class="form-label">Time:
+                                                            <input type="text" name="schedule_name" 
+                                                                class="form-control">
+                                                            </span>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <label for="from_to_schedule" class="form-label">Schedule:
                                                                 &nbsp;<span style="color:#ff0000">*</span></label>
-                                                        <input class="form-control" type="text" name="from_to_schedule">
-                                                        </span>
-                                                    </div>
-                                                </div> <br>
-                                                <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <label for="maximum_attendees" class="form-label">
+                                                            <input class="form-control" type="text" name="from_to_schedule">
+                                                            </span>
+                                                        </div>
+                                                    </div> <br>
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <label for="maximum_attendees" class="form-label">
                                                                 Maximum Attendees:&nbsp;<span style="color:#ff0000">*</span></label>
-                                                        <input type="text" name="maximum_attendees" class="form-control"> </span>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <label for="contact_person" class="form-label">
+                                                            <input type="text" name="maximum_attendees" class="form-control"> </span>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <label for="contact_person" class="form-label">
                                                                 Contact Person: &nbsp;<span style="color:#ff0000">*</span></label>
-                                                        <input class="form-control" type="text" name="contact_person">
-                                                        </span>
+                                                            <input class="form-control" type="text" name="contact_person">
+                                                            </span>
+                                                        </div>
                                                     </div>
                                                     <br>
                                                     <div align="right">
@@ -241,65 +242,67 @@
                                                             <button class="btn btn-primary" type="submit">Submit</button>
                                                         </a>
                                                     </div>
-                                            </form>
+                                                </form>
+
                                         </thead>
-
-                                        </div>
-                                        <!-- end col-->
+                                    
                                     </div>
-                                    <!-- end row-->
-
+                                    <!-- end col-->
                                 </div>
-                                <!-- container -->
+                                <!-- end row-->
 
                             </div>
-                            <!-- content -->
+                            <!-- container -->
+
                         </div>
-                        <!-- end row of table content-->
+                        <!-- content -->
+                    </div>
+                    <!-- end row of table content-->
+    
+    <!-- ============================================================== -->
+    <!-- End Page content -->
+    <!-- ============================================================== -->
 
-                        <!-- ============================================================== -->
-                        <!-- End Page content -->
-                        <!-- ============================================================== -->
 
 
+    <!-- bundle -->
+    <script src="../../static/js/vendor.min.js"></script>
+    <script src="../../static/js/app.min.js"></script>
 
-                        <!-- bundle -->
-                        <script src="../../static/js/vendor.min.js"></script>
-                        <script src="../../static/js/app.min.js"></script>
+    <!-- third party js -->
+    <script src="../../static/js/vendor/jquery.dataTables.min.js"></script>
+    <script src="../../static/js/vendor/dataTables.bootstrap5.js"></script>
+    <script src="../../static/js/vendor/dataTables.responsive.min.js"></script>
+    <script src="../../static/js/vendor/responsive.bootstrap5.min.js"></script>
+    <script src="../../static/js/vendor/dataTables.buttons.min.js"></script>
+    <script src="../../static/js/vendor/buttons.bootstrap5.min.js"></script>
+    <script src="../../static/js/vendor/buttons.flash.min.js"></script>
+    <script src="../../static/js/vendor/buttons.php5.min.js"></script>
+    <script src="../../static/js/vendor/buttons.html5.min.js"></script>
+    <script src="../../static/js/vendor/buttons.flash.min.js"></script>
+    <script src="../../static/js/vendor/buttons.print.min.js"></script>
+    <script src="../../static/js/vendor/dataTables.keyTable.min.js"></script>
+    <script src="../../static/js/vendor/dataTables.select.min.js"></script>
+    <script src="../../static/js/vendor/apexcharts.min.js"></script>
+    <script src="../../static/js/vendor/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="../../static/js/vendor/jquery-jvectormap-world-mill-en.js"></script>
+    <script src="../../static/js/vendor/dropzone.min.js"></script>
+    <script src="../../static/js/vendor/list.min.js"></script>
+    <!-- third party js ends -->
 
-                        <!-- third party js -->
-                        <script src="../../static/js/vendor/jquery.dataTables.min.js"></script>
-                        <script src="../../static/js/vendor/dataTables.bootstrap5.js"></script>
-                        <script src="../../static/js/vendor/dataTables.responsive.min.js"></script>
-                        <script src="../../static/js/vendor/responsive.bootstrap5.min.js"></script>
-                        <script src="../../static/js/vendor/dataTables.buttons.min.js"></script>
-                        <script src="../../static/js/vendor/buttons.bootstrap5.min.js"></script>
-                        <script src="../../static/js/vendor/buttons.flash.min.js"></script>
-                        <script src="../../static/js/vendor/buttons.php5.min.js"></script>
-                        <script src="../../static/js/vendor/buttons.html5.min.js"></script>
-                        <script src="../../static/js/vendor/buttons.flash.min.js"></script>
-                        <script src="../../static/js/vendor/buttons.print.min.js"></script>
-                        <script src="../../static/js/vendor/dataTables.keyTable.min.js"></script>
-                        <script src="../../static/js/vendor/dataTables.select.min.js"></script>
-                        <script src="../../static/js/vendor/apexcharts.min.js"></script>
-                        <script src="../../static/js/vendor/jquery-jvectormap-1.2.2.min.js"></script>
-                        <script src="../../static/js/vendor/jquery-jvectormap-world-mill-en.js"></script>
-                        <script src="../../static/js/vendor/dropzone.min.js"></script>
-                        <script src="../../static/js/vendor/list.min.js"></script>
-                        <!-- third party js ends -->
+    <!-- demo app -->
+    <script src="../../static/js/pages/demo.datatable-init.js"></script>
+    <script src="../../static/js/pages/demo.toastr.js"></script>
+    <script src="../../static/js/pages/demo.datatable-init.js"></script>
+    <script src="../../static/js/pages/demo.toastr.js"></script>
+    <script src="../../static/js/pages/list.js"></script>
+    <!-- end demo js-->
 
-                        <!-- demo app -->
-                        <script src="../../static/js/pages/demo.datatable-init.js"></script>
-                        <script src="../../static/js/pages/demo.toastr.js"></script>
-                        <script src="../../static/js/pages/demo.datatable-init.js"></script>
-                        <script src="../../static/js/pages/demo.toastr.js"></script>
-                        <script src="../../static/js/pages/list.js"></script>
-                        <!-- end demo js-->
-
-                        <!-- Datatable Init js -->
-                        <script src="assets/js/pages/demo.datatable-init.js"></script>
+    <!-- Datatable Init js -->
+    <script src="assets/js/pages/demo.datatable-init.js"></script>
 
 
 </body>
 
 </html>
+            

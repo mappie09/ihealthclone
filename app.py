@@ -1,12 +1,14 @@
 from distutils.log import debug
-from flask import Flask, render_template,request, redirect,request, redirect, url_for, session, logging
+from flask import Flask, render_template,request, redirect,request, request
+from flask_session import Session
+import psycopg2 #pip install psycopg2 
+import psycopg2.extras
+import requests
 import os
-import psycopg2
-from flask import session
 
 app=Flask(__name__,template_folder='template',static_folder='static')
-
-
+#app.secret_key = 'abandonware-invokes'
+#app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=10)
 
 def connection():
     s = 'database-1.c8punsklsimv.ap-southeast-1.rds.amazonaws.com'
@@ -19,42 +21,27 @@ def connection():
             curs.execute
     return conn
 
-
-"""""
-
-
-user = {"email": "", "password": ""}
-
-#Step – 4 (creating route for login)
-@app.route('/loginadmin', methods = ['POST', 'GET'])
-def loginadmin():
-    if(request.method == 'POST'):
-        email = request.form.get('email')
-        password = request.form.get('password')     
-        if email == user['email'] and password == user['password']:
-            
-            session['user'] = email
-            return redirect('/dashboard')
-
-        return "<h1>Wrong email or password</h1>"    
-
-    return render_template("loginadmin.html")
-
-
-
-#Step -6(creating route for logging out)
-@app.route('/logout')
-def logout():
-    session.pop('user')         
-    return redirect('/loginadmin')
-"""
+@app.route("/authLogin",methods=['GET'])
+def authLogin():
+	if request.method=='GET':
+		headers = {'Authorization':'token %s' % token}
+		token = requests.get("https://backend.brgyit-bot.com/api/v1/", headers=headers)
+		conn = connection()
+		cursor= conn.cursor()
+		cursor.execute("SELECT * FROM ihealth_session_ihealthsession WHERE token = %s AND expiration_date > now()", (str(token)))
+		row = cursor.fetchone()
+		if row == None:
+			print("There are no results for this query")
+			return redirect ('/home')
+		else:
+			("SELECT * FROM users_user WHERE id = %s", (str(row=id)))
+			return render_template('index.html')
+	
 
 @app.route("/index")
 def index():
-	#if('user' in session and session['user'] == user['email']):
-		return render_template("index.html")
+		return render_template('index.html')
 
-	#return '<h1>You are not logged in.</h1>'  
 
 @app.route("/clinic")
 def clinic():
@@ -184,13 +171,13 @@ def adsb():
 @app.route("/addschedule", methods = ['POST'])
 def addschedule():
 	if request.method == 'POST':
-		schedule_name= request.form['schedule_name']
-		contact_person= request.form['contact_person']
-		maximum_attendees = request.form['maximum_attendees']
-		from_to_schedule= request.form['from_to_schedule']
+		schedule_name = request.form.get["schedule_name"]
+		contact_person= request.form.get["contact_person"]
+		maximum_attendees = request.form.get["maximum_attendees"]
+		from_to_schedule= request.form.get["from_to_schedule"]
 	conn = connection()
 	cursor = conn.cursor()
-	cursor.execute('INSERT INTO ih_clinic_sched (schedule_name, contact_person, maximum_attendees, from_to_schedule)'' VALUES (%s,%s,%s,%s)',
+	cursor.execute('INSERT INTO ih_clinic_sched (schedule_name, contact_person, maximum_attendees, from_to_schedule)'' VALUES (%s,%s,%s, %s)', 
 	[schedule_name, contact_person, maximum_attendees, from_to_schedule])
 	conn.commit()
 	conn.close()
@@ -277,7 +264,6 @@ def updatemedicine(medicine_id):
 def adminclinicinv():
 	return render_template("adminclinicinv.html")
 
-
 @app.route("/adminvc")
 def adminvc():
 	return render_template("adminh-view-clinic.html")
@@ -296,7 +282,6 @@ def adminvv():
 
 @app.route("/adds")
 def adds():
-
 	return render_template("admin-add-schedule.html")
 
 @app.route("/addc")
@@ -364,9 +349,6 @@ def adminhaptmedicine():
 @app.route("/adminhaptclinic")
 def adminhaptclinic():
 	return render_template("adminhistory-apt-clinic.html")
-
-
-
 
 @app.route("/loginstaff")
 def loginstaff():
@@ -511,7 +493,6 @@ def vaccinationresident():
 def residentas():
 	return render_template("residentbooking.html")
 
-
 @app.route("/residentmedicine")
 def residentmedicine():
 	return render_template("residentmedicine.html") 
@@ -553,5 +534,5 @@ def reshistoryviewclinic():
 	return render_template("reshistory-view-clinic.html")
 
 if __name__== '__main__':
-	app.debug=True
+	app.secret_key = os.urandom(12)	
 app.run(debug=True)
